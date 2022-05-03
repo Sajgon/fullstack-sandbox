@@ -11,12 +11,12 @@ let list = {
     '0000000001': {
       id: '0000000001',
       title: 'First List',
-      todos: ['First todo of first list!']
+      todos: [{name:'First todo of first list!', done:false}]
     },
     '0000000002': {
       id: '0000000002',
       title: 'Second List',
-      todos: ['First todo of second list!']
+      todos: [{name:'First todo of second list!', done:false}]
     }
 }
 
@@ -24,6 +24,12 @@ app.get('/', (req, res) =>  res.send('Hello World!'))
 
 app.get('/api/fetch', function (req, res) {
     console.log('/api/fetch', list)
+    res.json(list)
+})
+
+app.post('/api/save/:id', function (req, res) {
+    list[req.params.id] = req.body;
+
     res.json(list)
 })
 

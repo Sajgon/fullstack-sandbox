@@ -11,7 +11,7 @@ const getHeaders = {
 async function getPersonalTodos() {
   const response = await fetch('http://localhost:3001/api/fetch', getHeaders)
   const result = await response.json()
-  return JSON.parse(result);
+  return result
 }
 
 export const TodoLists = ({ style }) => {
@@ -49,11 +49,23 @@ export const TodoLists = ({ style }) => {
     {todoLists[activeList] && <TodoListForm
       key={activeList} // use key to make React recreate component to reset internal state
       todoList={todoLists[activeList]}
-      saveTodoList={(id, { todos }) => {
+      saveTodoList={(id, todos) => {
         const listToUpdate = todoLists[id]
+        const updatedList = { ...listToUpdate, todos }
         setTodoLists({
           ...todoLists,
-          [id]: { ...listToUpdate, todos }
+          [id]: updatedList
+        })
+
+        fetch(`http://localhost:3001/api/save/${id}`, {
+          method: 'POST',
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedList)
+        })
+        .then(response => response.json())
+        .then((data) => {
+          // uncomment to enable serverside edits of the input (no need for this)
+          // setTodoLists(data)
         })
       }}
     />}
