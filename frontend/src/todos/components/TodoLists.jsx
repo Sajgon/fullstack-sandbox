@@ -3,21 +3,15 @@ import { Card, CardContent, List, ListItem, ListItemText, ListItemIcon, Typograp
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import { TodoListForm } from './TodoListForm'
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+const getHeaders = {
+  method: "GET",
+  headers: { "Content-Type": "application/json" }
+}
 
-const getPersonalTodos = () => {
-  return sleep(1000).then(() => Promise.resolve({
-    '0000000001': {
-      id: '0000000001',
-      title: 'First List',
-      todos: ['First todo of first list!']
-    },
-    '0000000002': {
-      id: '0000000002',
-      title: 'Second List',
-      todos: ['First todo of second list!']
-    }
-  }))
+async function getPersonalTodos() {
+  const response = await fetch('http://localhost:3001/api/fetch', getHeaders)
+  const result = await response.json()
+  return JSON.parse(result);
 }
 
 export const TodoLists = ({ style }) => {
