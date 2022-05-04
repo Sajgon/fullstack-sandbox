@@ -43,7 +43,7 @@ export const TodoLists = ({ style }) => {
             <ListItemIcon>
               <ReceiptIcon />
             </ListItemIcon>
-            <ListItemText primary={`${todoLists[key].title} ( ${completed.length}/${todos.length} done)`} />
+            <ListItemText primary={`${todoLists[key].title} ( ${completed.length}/${todos.length} done )`} />
           </ListItem>)
           })}
         </List>
