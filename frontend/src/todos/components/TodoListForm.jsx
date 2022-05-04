@@ -23,7 +23,7 @@ export const TodoListForm = ({ todoList, saveTodoList }) => {
               </Typography>
               <TextField
                 sx={{flexGrow: 1, marginTop: '1rem'}}
-                label='What to do?'
+                label={obj.done ? 'Done!' : 'What to do?'}
                 value={obj.name}
                 onChange={event => {
                   const updatedTodos = [

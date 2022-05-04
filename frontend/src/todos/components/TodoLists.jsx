@@ -27,13 +27,15 @@ export const TodoLists = ({ style }) => {
   return <Fragment>
     <Card style={style}>
       <CardContent>
-        <Typography
-          component='h2'
-        >
+        <Typography component='h2'>
           My Todo Lists
         </Typography>
         <List>
-          {Object.keys(todoLists).map((key) => <ListItem
+          {Object.keys(todoLists).map((key) => {
+            const todos = todoLists[key]['todos'];
+            const completed = todos.filter(todo => todo.done);
+
+            return (<ListItem
             key={key}
             button
             onClick={() => setActiveList(key)}
@@ -41,8 +43,9 @@ export const TodoLists = ({ style }) => {
             <ListItemIcon>
               <ReceiptIcon />
             </ListItemIcon>
-            <ListItemText primary={todoLists[key].title} />
-          </ListItem>)}
+            <ListItemText primary={`${todoLists[key].title} ( ${completed.length}/${todos.length} done)`} />
+          </ListItem>)
+          })}
         </List>
       </CardContent>
     </Card>
